@@ -1,0 +1,52 @@
+{
+  "records": [
+    {
+      "id": "F4512",
+      "albumName": "Enema of the State",
+      "artist": "blink-182"
+    },
+    {
+      "id": "G213L",
+      "albumName": "Unpeeled",
+      "artist": "Cage the Elephant"
+    },
+    {
+      "id": "72THQ",
+      "albumName": "GLUE",
+      "artist": "Boston Manor"
+    },
+    {
+      "id": "YG512",
+      "albumName": "Yeezus",
+      "artist": "Kanye West"
+    },
+    {
+      "albumName": "asdf",
+      "artist": "test",
+      "id": "Y50Ck2i"
+    },
+    {
+      "albumName": "asdf",
+      "artist": "test",
+      "id": "drGm8fp"
+    },
+    {
+      "albumName": "test",
+      "artist": "test",
+      "id": "an41mok"
+    },
+    {
+      "id": "3uFNHLG"
+    },
+    {
+      "albumName": "1",
+      "artist": "1",
+      "id": "g1toDQf"
+    },
+    {
+      "albumName": "test",
+      "artist": "test",
+      "id": "1NaBhTc"
+    }
+  ]
+}
