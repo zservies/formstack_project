@@ -12,6 +12,7 @@ custom:
 # Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
+  - serverless-offline
 
 provider:
   name: aws
@@ -31,7 +32,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:us-east-2:338145985299:table/test-table'
+      Resource: 'arn:aws:dynamodb:us-east-2:338145985299:table/vinyl-records'
 
 functions:
   create:
@@ -42,7 +43,7 @@ functions:
           path: create
           cors: true
   get:
-    handler: handler.get
+    handler: handler.getAllRecords
     events:
       - http:
           method: get
@@ -54,20 +55,12 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: PK
-            AttributeType: S
-          -
-            AttributeName: SK
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: PK
+          - AttributeName: id
             KeyType: HASH
-          -
-            AttributeName: SK
-            KeyType: RANGE
-        TableName: test-table
+        TableName: vinyl-records
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

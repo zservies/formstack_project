@@ -1,16 +1,47 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
-import 'source-map-support/register';
-import service from './src/service';
-import io from './src/io/index';
+import { APIGatewayEvent, Callback, Context, Handler } from "aws-lambda";
+import { createRecord, getRecords } from './src/IO';
 
-export const create: APIGatewayProxyHandler = async (event, _context) => {
-  const input = io.handler.request(event);
-  const result = await service(io).create(input);
-  console.log('the event: ', result.toString);
-  return io.handler.returnSuccess(result);
-}
 
-export const get: APIGatewayProxyHandler = async (event, _context) => {
-  const result = await service(io).get();
-  return io.handler.returnSuccess(result);
-}
+export const response = (message: any, statusCode: number): any => {
+  return {
+    statusCode,
+    body: JSON.stringify(message),
+    headers: {
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json"
+    }
+  };
+};
+
+/** Save an item in the to-do list */
+export const create: Handler = async (
+  event: APIGatewayEvent,
+  context: Context
+) => {
+  const incoming: { id: string, albumName: string, artist: string } = JSON.parse(event.body);
+  const { id, albumName, artist } = incoming;
+
+  try {
+    await createRecord(id, albumName, artist);
+    return response({ created: incoming }, 201);
+  } catch (err) {
+    return response(err, 400);
+  }
+};
+
+/** Get an item from the to-do-list table */
+export const getAllRecords: Handler = async (
+  event: APIGatewayEvent,
+  context: Context
+) => {
+  // const id: string = event.pathParameters.id;
+
+  try {
+    const records = await getRecords();
+
+    return response(records, 200);
+  } catch (err) {
+    return response(err, 404);
+  }
+};
