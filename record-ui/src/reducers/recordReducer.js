@@ -3,8 +3,8 @@ const recordReducer = (state = [], action) => {
   // console.log('action', action)
   switch(action.type) {
     case 'CREATE':
-      console.log(action.data);
-      return action.data;
+      console.log(action.data.newRecord);
+      return action.data.newRecords;
     case 'INIT_RECORDS':
       console.log('action: ',action);
       return action.data;
