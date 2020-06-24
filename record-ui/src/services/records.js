@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const baseUrl = 'https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/create';
-
 const getAll = async () => {
   const response = await axios.get('https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/records');
   return response.data;
