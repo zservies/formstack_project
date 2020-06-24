@@ -15,8 +15,12 @@ export default function RecordList(props) {
       {records &&
         records.map((record) => (
           <div key={record.id}>
-            {record.albumName} by {record.artist}
-            <br></br>
+            <div>
+              {record.albumName}
+              <br />
+              {record.artist}
+              <br />
+            </div>
             <button onClick={() => recordDelete(record)}>Delete</button>
           </div>
         ))}
