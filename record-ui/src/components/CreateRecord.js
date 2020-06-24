@@ -1,6 +1,7 @@
 import React from "react";
 import { createRecord } from "../actions/recordActions";
 import { useDispatch } from "react-redux";
+import {v4 as uuid } from 'uuid';
 
 export default function CreateRecord() {
   const dispatch = useDispatch();
@@ -8,13 +9,13 @@ export default function CreateRecord() {
   const addRecord = async (event) => {
     event.preventDefault()
     const albumDetails = {
+      id: uuid(),
       albumName: event.target.albumName.value,
       artist: event.target.artist.value
     };
     event.target.albumName.value ='';
     event.target.artist.value ='';
     dispatch(createRecord(albumDetails));
-    console.log('album details: ',albumDetails);
   }
   return (
     <div>

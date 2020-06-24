@@ -1,16 +1,26 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3001/records';
+const baseUrl = 'https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/create';
 
-export const getAll = async () => {
-  const response = await axios.get(baseUrl);
+const getAll = async () => {
+  const response = await axios.get('https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/records');
   return response.data;
 }
 
-export const createRecord = async (record) => {
-  const createPayload = {albumName: record.albumName, artist: record.artist};
-  const response = await axios.post(baseUrl, createPayload);
+const createRecord = async (record) => {
+  const createPayload = {albumName: record.albumName, artist: record.artist, id: record.id};
+  const response = await axios.post('https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/create', createPayload);
   return response.data;
 }
 
-export default {getAll, createRecord}
+const deleteRecord = async (id) => {
+  const deletePayload = { 
+    data: {
+      id: id
+  } 
+};
+  const response = await axios.delete('https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/delete', deletePayload);
+  return response.data;
+}
+
+export default {getAll, createRecord, deleteRecord}
