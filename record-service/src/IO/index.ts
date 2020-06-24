@@ -7,7 +7,7 @@ export function createRecord(id: string, albumName: string, artist: string) {
     Item: {
       id,
       albumName,
-      artist
+      artist,
     },
   };
   return dynamoDB
@@ -17,7 +17,6 @@ export function createRecord(id: string, albumName: string, artist: string) {
     .catch((err) => err);
 }
 
-/** get a to-do item from the db table */
 export function getRecords() {
   const params = {
     TableName: "vinyl-records2",
@@ -33,11 +32,11 @@ export function getRecords() {
 export function deleteRecord(record) {
   const params = {
     TableName: "vinyl-records2",
-    Key: record
+    Key: record,
   };
   return dynamoDB
     .delete(params)
     .promise()
-    .then((res)=>res)
-    .catch((err)=>err);
+    .then((res) => res)
+    .catch((err) => err);
 }

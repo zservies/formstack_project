@@ -16,7 +16,6 @@ export default function CreateRecord() {
     event.target.albumName.value ='';
     event.target.artist.value ='';
     dispatch(createRecord(albumDetails));
-    console.log('album details: ',albumDetails);
   }
   return (
     <div>

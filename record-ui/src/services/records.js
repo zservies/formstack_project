@@ -13,4 +13,14 @@ const createRecord = async (record) => {
   return response.data;
 }
 
-export default {getAll, createRecord}
+const deleteRecord = async (id) => {
+  const deletePayload = { 
+    data: {
+      id: id
+  } 
+};
+  const response = await axios.delete('https://xk37wm9k7i.execute-api.us-east-2.amazonaws.com/dev/delete', deletePayload);
+  return response.data;
+}
+
+export default {getAll, createRecord, deleteRecord}

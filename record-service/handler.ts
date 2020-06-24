@@ -1,6 +1,5 @@
-import { APIGatewayEvent, Callback, Context, Handler } from "aws-lambda";
-import { createRecord, getRecords, deleteRecord } from './src/IO';
-
+import { APIGatewayEvent, Handler } from "aws-lambda";
+import { createRecord, getRecords, deleteRecord } from "./src/IO";
 
 export const response = (message: any, statusCode: number): any => {
   return {
@@ -9,17 +8,17 @@ export const response = (message: any, statusCode: number): any => {
     headers: {
       "Access-Control-Allow-Credentials": true,
       "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
 };
 
-/** Save an item in the to-do list */
-export const create: Handler = async (
-  event: APIGatewayEvent,
-  context: Context
-) => {
-  const incoming: { id: string, albumName: string, artist: string } = JSON.parse(event.body);
+export const create: Handler = async (event: APIGatewayEvent) => {
+  const incoming: {
+    id: string;
+    albumName: string;
+    artist: string;
+  } = JSON.parse(event.body);
   const { id, albumName, artist } = incoming;
 
   try {
@@ -30,13 +29,7 @@ export const create: Handler = async (
   }
 };
 
-/** Get an item from the to-do-list table */
-export const getAllRecords: Handler = async (
-  event: APIGatewayEvent,
-  context: Context
-) => {
-  // const id: string = event.pathParameters.id;
-
+export const getAllRecords: Handler = async () => {
   try {
     const records = await getRecords();
 
@@ -46,18 +39,13 @@ export const getAllRecords: Handler = async (
   }
 };
 
-export const deleteARecord: Handler = async (
-  event: APIGatewayEvent,
-  context: Context
-) => {
-  // const id: string = event.pathParameters.id;
-  const id: { id: string } = JSON.parse(event.body)
+export const deleteARecord: Handler = async (event: APIGatewayEvent) => {
+  const id: { id: string } = JSON.parse(event.body);
   try {
     await deleteRecord(id);
 
-    return response({deleted: id}, 200);
+    return response({ deleted: id }, 200);
   } catch (err) {
     return response(err, 404);
   }
 };
-

@@ -1,18 +1,25 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { deleteRecord } from "../actions/recordActions";
 
-export default function RecordList() {
+export default function RecordList(props) {
   const dispatch = useDispatch();
-  const records = useSelector((state) => state.records.Items);
-  console.log("state: ", records);
+  let records = useSelector((state) => state.records.Items);
+
+  const recordDelete = (recordToDelete) => {
+    dispatch(deleteRecord(recordToDelete.id));
+  };
   return (
     <div>
       <h3>Albums</h3>
-      {records && records.map((record) => (
-        <div key={record.id}>
-          {record.albumName} by {record.artist}
-        </div>
-      ))}
+      {records &&
+        records.map((record) => (
+          <div key={record.id}>
+            {record.albumName} by {record.artist}
+            <br></br>
+            <button onClick={() => recordDelete(record)}>Delete</button>
+          </div>
+        ))}
     </div>
   );
 }

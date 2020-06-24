@@ -3,7 +3,6 @@ import recordService from '../services/records';
 export const initRecords = () => {
   return async dispatch => {
     const records = await recordService.getAll();
-    console.log('from actions: ', records);
     dispatch({
       type: 'INIT_RECORDS',
       data: records
@@ -23,4 +22,19 @@ export const createRecord = (record) => {
       }
     });
   };
+}
+
+export const deleteRecord = (record) => {
+  return async dispatch => {
+    const recordToDelete = record;
+    await recordService.deleteRecord(recordToDelete);
+    const newRecords = await recordService.getAll();
+    dispatch({
+      type: 'DELETE_RECORD',
+      data: {
+        recordToDelete,
+        newRecords
+      }
+    });
+  }
 }
