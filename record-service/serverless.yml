@@ -32,7 +32,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:us-east-2:338145985299:table/vinyl-records'
+      Resource: 'arn:aws:dynamodb:us-east-2:338145985299:table/vinyl-records2'
 
 functions:
   create:
@@ -49,6 +49,13 @@ functions:
           method: get
           path: records
           cors: true
+  delete:
+    handler: handler.deleteARecord
+    events:
+      - http:
+          method: delete
+          path: delete
+          cors: true
 resources:
   Resources:
     serviceTable:
@@ -60,7 +67,7 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-        TableName: vinyl-records
+        TableName: vinyl-records2
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

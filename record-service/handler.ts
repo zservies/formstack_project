@@ -1,5 +1,5 @@
 import { APIGatewayEvent, Callback, Context, Handler } from "aws-lambda";
-import { createRecord, getRecords } from './src/IO';
+import { createRecord, getRecords, deleteRecord } from './src/IO';
 
 
 export const response = (message: any, statusCode: number): any => {
@@ -45,3 +45,19 @@ export const getAllRecords: Handler = async (
     return response(err, 404);
   }
 };
+
+export const deleteARecord: Handler = async (
+  event: APIGatewayEvent,
+  context: Context
+) => {
+  // const id: string = event.pathParameters.id;
+  const id: { id: string } = JSON.parse(event.body)
+  try {
+    await deleteRecord(id);
+
+    return response({deleted: id}, 200);
+  } catch (err) {
+    return response(err, 404);
+  }
+};
+
